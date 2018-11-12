@@ -3,30 +3,112 @@
 <head>
 	<title>wendy's page</title>
 	<meta charset="utf-8">
-	<meta name="">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 
-	<link rel="stylesheet" type="text/css" href="mystyle.css">
+	<link rel="stylesheet" type="text/css" href="myStyle.css">
 
-</head>
-<body>
-	<h1>毛毛的個人網頁</h1>
+	<script src="jquery-3.3.1.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <script>
+		$(document).ready(function(){
+	    	$(".uuu").fadeIn(3000);
+		});
+	</script>
+
+	<script>
+		$(document).ready(function(){
+	    $(".quotes").hide();  //隱藏所有quote
+	    $(".quotes:nth-child(1)").fadeIn("slow");  //秀出第一個quote, n-th-child(1)是一個persudo-element
+	    let current = 1;   //設定當前quote的位置
+	    let max = $(".sliderul li").length;  //.sliderul底下有幾個li
 	    
-	<h2>我的大頭貼</h2>
-	    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC7Ksl-uc7kvHr84WWUa5dt8LQW6HQGGaulcLPRegxLnO7rZXVMA">
-	<h2>我是誰?</h2>
-	    <p>陳玟卉 圖資系 輔仁大學</p>
-	<h2>我的專長</h2>
+	    startChange();  //開始自動撥放
+
+	    //往前一個quote
+	    function prev(){  
+	        $(".quotes").hide();  //先將所有quote隱藏
+	        current -= 1;  //當前位置-1
+
+	        if(current == 0){  //防止超出範圍的狀況，如果-1後等於零就讓它變max
+	            current = max;
+	        }
+	        $(".quotes:nth-child(" + current + ")").fadeIn("slow");  //根據當前位置秀出quote
+	    }
+
+	    //往後一個quote
+	    function next(){    
+	        $(".quotes").hide();
+	        current += 1;  //當前位置-1
+
+	        if(current > max){  //防止超出範圍的狀況，如果大於max則返回1
+	            current = 1;
+	        }
+	        $(".quotes:nth-child(" + current + ")").fadeIn("slow");
+	    }
+
+	    function startChange(){
+	    	changeIt = setInterval(function(){next();}, 4000); //每4000ms執行一次next()
+	    }
+        
+        function stopChange(){
+        	cleanInterval(changeIt); //清除interval
+        }
+
+        //按下prev時執行
+        $(".spot.prev").click(function(){
+        	stopChange(); //先停止自動撥放
+        	prev(); //換到前一個quote
+        	startChange(); //再開始自動撥放
+        });
+
+        //按下next時執行
+        $(".spot.next").click(function(){
+        	stopChange();
+        	next();
+        	startChange();
+        });
+    });
+    </script>
+</head>
+
+<body>
+    <div class="content">
+    <h1 class="uuu" style="display: none;">毛毛的個人網頁</h1>
+
+	<div class="slideshow-container">
+		<div class="spot prev"></div>
+		    <ul class="sliderul">
+			   <li class="quotes"><q>人生能有幾次搏？莫到白發還未博。</q></li>
+			   <li class="quotes"><q>工作，退一步海闊天空；愛情，退一步人去樓空。</q></li>
+			   <li class="quotes"><q>生活將我們磨圓，是為了讓我們滾得更遠。</q></li>
+		    </ul>
+        <div class="spot next"></div>
+    </div>
+
+	<div class="">
+	
+    </div>
+        <h2 id="myStyle">我的大頭貼</h2>
+	    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC7Ksl-uc7kvHr84WWUa5dt8LQW6HQGGaulcLPRegxLnO7rZXVMA" style="width:300px;">	
+	    <h2 id="whoIsI">我是誰?</h2>
+	    <p>
+	    姓名：陳玟卉 
+	    系級：圖資系
+	    就讀學校：<a href="http://www.fju.edu.tw">輔仁大學</a>
+	    </p>
+	    <h2 id="mySkill">我的專長</h2>
 	    <ol>
 	    	<li>不知道</li>
 	    	<li>unknown</li>
 	    	<li>who care</li>
 	    </ol>
-	<h2>我的興趣</h2>
+	    <h2 id="myHabbit">我的興趣</h2>
 	    <ul>
 	    	<li>不知道</li>
 	    	<li>unknown</li>
 	    	<li>who care</li>
 	    </ul>
-	<a href="http://www.fju.edu.tw/#&panel1-1"></a>
+	</div>
 </body>
 </html>
